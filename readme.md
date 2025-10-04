@@ -1,6 +1,8 @@
 # Goon Corner
+To use this extension, please clone the repository onto your device. Open a Chromium-based browser and type `chrome://extensions`. Enable **Developer Mode** and click `Load Unpacked`, then select the folder `67GoonCornerSybau`. The extension is now ready to use !!
+
 ## About This Extension
-This extension aims to improve ADHD attention with visual stimulation via subway surfers gameplay. It is targeted towards Gen-Z. Although it sounds stupid, there is actual science supporting this.
+This extension aims to improve ADHD attention with visual stimulation via subway surfers gameplay. It is targeted towards Gen-Z. Although it sounds whimsical, there is actual science supporting this.
 
 ### The Science Behind ADHD
 Research consistently shows that people with ADHD often experience understimulation, where their brains don't receive enough sensory input to maintain optimal attention. This creates a neurological need for additional stimulation to reach what researchers call the "arousal sweet spot" for cognitive performance [[1]](#1)[[2]](#2). 
