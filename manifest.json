@@ -1,0 +1,39 @@
+{
+    "manifest_version": 3,
+    "name": "67 Goon Corner Extension",
+    "version": "1.1",
+    "description": "Highlights every instance of 67 and adds a Goon Corner to the webpage",
+    "permissions": [
+        "activeTab",
+        "storage"
+    ],
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "content.js",
+                "popup-injector.js"
+            ],
+            "css": [
+                "highlight.css",
+                "popup.css"
+            ]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "popup.html",
+                "popup.css"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
+    ],
+    "action": {
+        "default_title": "Sybau"
+    }
+}
