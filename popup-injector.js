@@ -16,6 +16,12 @@
                 popupContainer.innerHTML = html;
                 document.body.appendChild(popupContainer);
                 
+                // Fix video source path
+                const video = popupContainer.querySelector('.subway-video');
+                if (video) {
+                    video.src = chrome.runtime.getURL('subwaysurfers.mp4');
+                }
+                
                 // Add drag functionality
                 addDragFunctionality();
                 

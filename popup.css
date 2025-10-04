@@ -35,7 +35,7 @@
 
 .ext-popup-body {
     margin: 0 !important;
-    padding: 16px !important;
+    padding: 0 !important;
     color: #333 !important;
     height: 100% !important;
     display: flex !important;
@@ -43,4 +43,11 @@
     justify-content: center !important;
     align-items: center !important;
     text-align: center !important;
+}
+
+.subway-video {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    border-radius: 12px !important;
 }
