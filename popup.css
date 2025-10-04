@@ -19,6 +19,12 @@
     transition: opacity 0.3s ease, transform 0.3s ease !important;
     pointer-events: none !important;
     overflow: hidden !important;
+    cursor: move !important;
+}
+
+.ext-popup-container.dragging {
+    transition: none !important;
+    cursor: grabbing !important;
 }
 
 .ext-popup-container.ext-popup-show {
