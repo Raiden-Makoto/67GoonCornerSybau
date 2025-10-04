@@ -56,6 +56,9 @@
         document.body.appendChild(counterElement);
         document.body.appendChild(arrowElement);
         document.body.appendChild(showPopupButton);
+        
+        // Match button width to counter width
+        matchButtonWidth();
     }
 
     function toggleCounter() {
@@ -72,6 +75,15 @@
     function updateCounter() {
         if (counterElement) {
             counterElement.textContent = `67 Count \u{1F940}: ${totalCount}`;
+            // Update button width when counter changes
+            matchButtonWidth();
+        }
+    }
+
+    function matchButtonWidth() {
+        if (counterElement && showPopupButton) {
+            const counterWidth = counterElement.offsetWidth;
+            showPopupButton.style.width = counterWidth + 'px';
         }
     }
 

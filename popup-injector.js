@@ -31,12 +31,13 @@
                 // Hide the "Goon Corner" button when popup is shown
                 hideGoonCornerButton();
                 
-                // Resume video playback
-                resumeVideo();
-                
                 // Show with animation
                 requestAnimationFrame(() => {
                     popupContainer.classList.add('ext-popup-show');
+                    // Resume video playback after animation starts
+                    setTimeout(() => {
+                        resumeVideo();
+                    }, 150); // Half of the transition duration for smoother effect
                 });
             })
             .catch(console.error);
