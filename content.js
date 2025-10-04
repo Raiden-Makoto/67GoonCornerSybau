@@ -41,6 +41,8 @@
         if (!p || p.nodeType !== Node.ELEMENT_NODE) return false;
         // Skip inside existing highlights
         if (p.closest && p.closest('mark.highlight-67')) return true;
+        // Skip inside the counter element itself
+        if (p.id === 'sixty-seven-counter' || p.closest('#sixty-seven-counter')) return true;
         const t = p.tagName;
         if (['SCRIPT','STYLE','INPUT','TEXTAREA','SELECT'].includes(t)) return true;
         if (p.isContentEditable) return true;
