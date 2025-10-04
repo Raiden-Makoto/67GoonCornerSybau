@@ -25,6 +25,15 @@
                 // Add drag functionality
                 addDragFunctionality();
                 
+                // Add close button functionality
+                addCloseFunctionality();
+                
+                // Hide the "Goon Corner" button when popup is shown
+                hideGoonCornerButton();
+                
+                // Resume video playback
+                resumeVideo();
+                
                 // Show with animation
                 requestAnimationFrame(() => {
                     popupContainer.classList.add('ext-popup-show');
@@ -73,6 +82,59 @@
         isDragging = false;
         popupContainer.classList.remove('dragging');
     }
+
+    function addCloseFunctionality() {
+        const closeBtn = popupContainer.querySelector('.popup-close-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', hidePopup);
+        }
+    }
+
+    function hidePopup() {
+        // Pause the video before hiding
+        pauseVideo();
+        popupContainer.classList.remove('ext-popup-show');
+        // Show the "Goon Corner" button when popup is hidden
+        showGoonCornerButton();
+        // Remove popup after animation completes
+        setTimeout(() => {
+            if (popupContainer && popupContainer.parentNode) {
+                popupContainer.parentNode.removeChild(popupContainer);
+                popupContainer = null;
+            }
+        }, 300); // Match CSS transition duration
+    }
+
+    function showGoonCornerButton() {
+        const button = document.getElementById('show-popup-button');
+        if (button) {
+            button.classList.add('show');
+        }
+    }
+
+    function hideGoonCornerButton() {
+        const button = document.getElementById('show-popup-button');
+        if (button) {
+            button.classList.remove('show');
+        }
+    }
+
+    function pauseVideo() {
+        const video = popupContainer?.querySelector('.subway-video');
+        if (video) {
+            video.pause();
+        }
+    }
+
+    function resumeVideo() {
+        const video = popupContainer?.querySelector('.subway-video');
+        if (video) {
+            video.play();
+        }
+    }
+
+    // Listen for show popup events
+    window.addEventListener('showPopup', createPopup);
 
     // Show immediately on load (or call createPopup() when needed)
     if (document.readyState === 'loading') {

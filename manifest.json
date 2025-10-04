@@ -26,7 +26,8 @@
         {
             "resources": [
                 "popup.html",
-                "popup.css"
+                "popup.css",
+                "subwaysurfers.mp4"
             ],
             "matches": [
                 "<all_urls>"

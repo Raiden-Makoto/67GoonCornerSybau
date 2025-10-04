@@ -4,6 +4,7 @@
     // Counter element
     let counterElement = null;
     let arrowElement = null;
+    let showPopupButton = null;
     let totalCount = 0;
     let isCounterHidden = false;
 
@@ -43,8 +44,18 @@
         // Add click event listener to arrow
         arrowElement.addEventListener('click', toggleCounter);
         
+        // Create show popup button
+        showPopupButton = document.createElement('div');
+        showPopupButton.id = 'show-popup-button';
+        showPopupButton.textContent = 'Goon Corner';
+        showPopupButton.title = 'Goon Corner';
+        
+        // Add click event listener to show popup button
+        showPopupButton.addEventListener('click', showPopup);
+        
         document.body.appendChild(counterElement);
         document.body.appendChild(arrowElement);
+        document.body.appendChild(showPopupButton);
     }
 
     function toggleCounter() {
@@ -62,6 +73,11 @@
         if (counterElement) {
             counterElement.textContent = `67 Count \u{1F940}: ${totalCount}`;
         }
+    }
+
+    function showPopup() {
+        // Dispatch a custom event to trigger popup creation
+        window.dispatchEvent(new CustomEvent('showPopup'));
     }
 
     function shouldSkip(node) {

@@ -7,7 +7,7 @@
     width: 300px !important;
     height: 400px !important;
     padding: 0 !important;
-    z-index: 2147483647 !important;
+    z-index: 2147483646 !important;
     font-family: Arial, sans-serif !important;
     font-size: 14px !important;
     background: #ffffff !important;
@@ -50,4 +50,33 @@
     height: 100% !important;
     object-fit: cover !important;
     border-radius: 12px !important;
+}
+
+.popup-close-btn {
+    position: absolute !important;
+    top: 8px !important;
+    right: 8px !important;
+    width: 24px !important;
+    height: 24px !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 50% !important;
+    font-size: 16px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    z-index: 2147483647 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: background-color 0.2s ease !important;
+    user-select: none !important;
+}
+
+.popup-close-btn:hover {
+    background: rgba(0, 0, 0, 0.9) !important;
+}
+
+.popup-close-btn:active {
+    background: rgba(255, 0, 0, 0.8) !important;
 }
