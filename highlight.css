@@ -23,4 +23,40 @@
     border: 2px solid #ff5252 !important;
     min-width: 60px !important;
     text-align: center !important;
+    cursor: pointer !important;
+    transition: transform 0.3s ease-in-out !important;
+    user-select: none !important;
+}
+
+#sixty-seven-counter.hidden {
+    transform: translateX(calc(100% + 20px)) !important;
+}
+
+#sixty-seven-arrow {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 30px !important;
+    height: 30px !important;
+    background: black !important;
+    color: white !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    z-index: 10000 !important;
+    border: 2px solid #ff5252 !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+    transition: opacity 0.3s ease-in-out !important;
+    user-select: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+#sixty-seven-arrow.show {
+    opacity: 1 !important;
+    pointer-events: auto !important;
 }

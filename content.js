@@ -3,7 +3,9 @@
 (function () {
     // Counter element
     let counterElement = null;
+    let arrowElement = null;
     let totalCount = 0;
+    let isCounterHidden = false;
 
     // Entry point
     if (document.readyState === 'loading') {
@@ -27,7 +29,33 @@
         counterElement = document.createElement('div');
         counterElement.id = 'sixty-seven-counter';
         counterElement.textContent = '67 Count \u{1F940}: 0'; // wilted flower emoji so goated
+        counterElement.title = 'Click to hide counter';
+        
+        // Add click event listener
+        counterElement.addEventListener('click', toggleCounter);
+        
+        // Create arrow element
+        arrowElement = document.createElement('div');
+        arrowElement.id = 'sixty-seven-arrow';
+        arrowElement.textContent = '←';
+        arrowElement.title = 'Click to show counter';
+        
+        // Add click event listener to arrow
+        arrowElement.addEventListener('click', toggleCounter);
+        
         document.body.appendChild(counterElement);
+        document.body.appendChild(arrowElement);
+    }
+
+    function toggleCounter() {
+        isCounterHidden = !isCounterHidden;
+        if (isCounterHidden) {
+            counterElement.classList.add('hidden');
+            arrowElement.classList.add('show');
+        } else {
+            counterElement.classList.remove('hidden');
+            arrowElement.classList.remove('show');
+        }
     }
 
     function updateCounter() {
