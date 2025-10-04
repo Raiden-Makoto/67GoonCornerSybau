@@ -50,6 +50,7 @@
     }
 
     function startDrag(e) {
+        if (!popupContainer) return;
         isDragging = true;
         popupContainer.classList.add('dragging');
         
@@ -61,7 +62,7 @@
     }
 
     function drag(e) {
-        if (!isDragging) return;
+        if (!isDragging || !popupContainer) return;
         
         const x = e.clientX - dragOffset.x;
         const y = e.clientY - dragOffset.y;
@@ -81,7 +82,9 @@
 
     function endDrag() {
         isDragging = false;
-        popupContainer.classList.remove('dragging');
+        if (popupContainer) {
+            popupContainer.classList.remove('dragging');
+        }
     }
 
     function addCloseFunctionality() {
