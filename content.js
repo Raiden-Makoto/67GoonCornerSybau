@@ -1,57 +1,84 @@
-if (document.readyState == 'loading') {
-    document.addEventListener('DOMContentLoaded', Highlight67);
-}
-else {
-    Highlight67();
-}
+// content.js
 
-function Highlight67() {
-    // recursively collect all text nodes under a root node
+(function () {
+    // Entry point
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', runHighlighter);
+    } else {
+        runHighlighter();
+    }
+
+    function runHighlighter() {
+        try {
+            highlightExisting();
+            observeDynamic();
+        } catch (err) {
+            console.error('67 Highlighter error:', err);
+        }
+    }
+
+    function shouldSkip(node) {
+        const p = node.parentNode;
+        if (!p || p.nodeType !== Node.ELEMENT_NODE) return false;
+        // Skip inside existing highlights
+        if (p.closest && p.closest('mark.highlight-67')) return true;
+        const t = p.tagName;
+        if (['SCRIPT','STYLE','INPUT','TEXTAREA','SELECT'].includes(t)) return true;
+        if (p.isContentEditable) return true;
+        const s = window.getComputedStyle(p);
+        return s.display === 'none' || s.visibility === 'hidden';
+    }
+
     function getTextNodes(root) {
         const nodes = [];
         const walker = document.createTreeWalker(
             root,
             NodeFilter.SHOW_TEXT,
-            {
-                acceptNode(node) {
-                    const parentTag = node.parentNode && node.parentNode.tagName;
-                    if (parentTag === 'SCRIPT' || parentTag === 'STYLE') {
-                        return NodeFilter.FILTER_REJECT;
-                    }
-                    return NodeFilter.FILTER_ACCEPT;
-                }
-            }
-        ); // idk what this does but idrc
-        let current;
-        while (current = walker.nextNode()) {
-            nodes.push(current); // freaky ahh stack
-        }
+            { acceptNode: n => shouldSkip(n) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT }
+        );
+        let cur;
+        while (cur = walker.nextNode()) nodes.push(cur);
         return nodes;
     }
-    // this function highlights 67
+
     function highlightInNode(textNode) {
-        const text = textNode.textContent;
-        const regex = /67/g; // accept all numbers, so 167 and 9267 are valid
-        if (!regex.test(text)) return;
+        const txt = textNode.textContent;
+        const regex = /67/g;
+        if (!regex.test(txt)) return;
         const span = document.createElement('span');
-        span.innerHTML = text.replace(regex, '<mark class="highlight-67">$&</mark>');
-        const parent = textNode.parentNode;
-        parent.insertBefore(span, textNode);
-        parent.removeChild(textNode);
+        span.innerHTML = txt.replace(regex, '<mark class="highlight-67">$&</mark>');
+        const p = textNode.parentNode;
+        p.insertBefore(span, textNode);
+        p.removeChild(textNode);
     }
-    // now let's actually highlight everything
-    const allText = getTextNodes(document.body);
-    allText.forEach(highlightInNode);
-    const observer = new MutationObserver(mutations => {
-        for (const m of mutations) {
-            for (const node of m.addedNodes) {
-                if (node.nodeType === Node.TEXT_NODE) {
-                    highlightInNode(node);
-                } else if (node.nodeType === Node.ELEMENT_NODE) {
-                    getTextNodes(node).forEach(highlightInNode);
-                }
-            }
+
+    function highlightExisting() {
+        getTextNodes(document.body).forEach(highlightInNode);
+    }
+
+    // Dynamic content handling with throttle
+    const pending = new Set();
+    let scheduled = false;
+    function processNode(node) {
+        if (node.nodeType === Node.TEXT_NODE) {
+            if (!shouldSkip(node)) highlightInNode(node);
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+            getTextNodes(node).forEach(highlightInNode);
         }
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
-}
+    }
+
+    function observeDynamic() {
+        const obs = new MutationObserver(muts => {
+            muts.forEach(m => m.addedNodes.forEach(n => pending.add(n)));
+            if (!scheduled) {
+                scheduled = true;
+                requestIdleCallback(() => {
+                    pending.forEach(processNode);
+                    pending.clear();
+                    scheduled = false;
+                }, { timeout: 500 });
+            }
+        });
+        obs.observe(document.body, { childList: true, subtree: true });
+    }
+})();
