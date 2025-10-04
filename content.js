@@ -32,7 +32,7 @@
 
     function updateCounter() {
         if (counterElement) {
-            counterElement.textContent = `67s: ${totalCount}`;
+            counterElement.textContent = `67 Count \u{1F940}: ${totalCount}`;
         }
     }
 
