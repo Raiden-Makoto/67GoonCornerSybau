@@ -37,7 +37,7 @@
         // Create arrow element
         arrowElement = document.createElement('div');
         arrowElement.id = 'sixty-seven-arrow';
-        arrowElement.textContent = '←';
+        arrowElement.textContent = '\u{1F940}';
         arrowElement.title = 'Click to show counter';
         
         // Add click event listener to arrow
