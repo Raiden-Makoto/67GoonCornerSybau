@@ -1,6 +1,8 @@
 // popup-injector.js
 (function () {
     let popupContainer = null;
+    let popupMiniContainer = null;
+    let miniShowButton = null;
     let isDragging = false;
     let dragOffset = { x: 0, y: 0 };
 
@@ -28,8 +30,8 @@
                 // Add close button functionality
                 addCloseFunctionality();
                 
-                // Hide the "Goon Corner" button when popup is shown
-                hideGoonCornerButton();
+                // Hide the "Subway Surfers" button when popup is shown
+                hideSubwaySurfersButton();
                 
                 // Show with animation
                 requestAnimationFrame(() => {
@@ -41,6 +43,68 @@
                 });
             })
             .catch(console.error);
+    }
+
+    function createMiniPopup() {
+        if (popupMiniContainer) return;
+        popupMiniContainer = document.createElement('div');
+        popupMiniContainer.id = 'extension-popup-67-mini';
+        popupMiniContainer.className = 'ext-mini-container';
+
+        fetch(chrome.runtime.getURL('popup-mini.html'))
+            .then(res => res.text())
+            .then(html => {
+                popupMiniContainer.innerHTML = html;
+                document.body.appendChild(popupMiniContainer);
+
+                // Set image source for mini popup
+                const img = popupMiniContainer.querySelector('.mini-image');
+                if (img) {
+                    img.src = chrome.runtime.getURL('gooncorner.png');
+                }
+
+                // Styling is fully handled by ext-mini-container CSS
+
+                // Close only removes the mini popup
+                const closeBtn = popupMiniContainer.querySelector('.popup-close-btn');
+                if (closeBtn) {
+                    closeBtn.addEventListener('click', () => {
+                        if (popupMiniContainer && popupMiniContainer.parentNode) {
+                            popupMiniContainer.parentNode.removeChild(popupMiniContainer);
+                            popupMiniContainer = null;
+                        }
+                        showMiniButton();
+                    });
+                }
+
+                requestAnimationFrame(() => {
+                    popupMiniContainer.classList.add('ext-mini-show');
+                });
+            })
+            .catch(console.error);
+        hideMiniButton();
+    }
+
+    function ensureMiniButton() {
+        if (miniShowButton) return;
+        miniShowButton = document.createElement('div');
+        miniShowButton.id = 'show-mini-button';
+        miniShowButton.textContent = 'Goon Corner';
+        miniShowButton.title = 'Goon Corner';
+        miniShowButton.addEventListener('click', () => {
+            createMiniPopup();
+        });
+        document.body.appendChild(miniShowButton);
+    }
+
+    function showMiniButton() {
+        ensureMiniButton();
+        miniShowButton.classList.add('show');
+    }
+
+    function hideMiniButton() {
+        ensureMiniButton();
+        miniShowButton.classList.remove('show');
     }
 
     function addDragFunctionality() {
@@ -98,8 +162,8 @@
         // Pause the video before hiding
         pauseVideo();
         popupContainer.classList.remove('ext-popup-show');
-        // Show the "Goon Corner" button when popup is hidden
-        showGoonCornerButton();
+        // Show the "Subway Surfers" button when popup is hidden
+        showSubwaySurfersButton();
         // Remove popup after animation completes
         setTimeout(() => {
             if (popupContainer && popupContainer.parentNode) {
@@ -109,14 +173,14 @@
         }, 300); // Match CSS transition duration
     }
 
-    function showGoonCornerButton() {
+    function showSubwaySurfersButton() {
         const button = document.getElementById('show-popup-button');
         if (button) {
             button.classList.add('show');
         }
     }
 
-    function hideGoonCornerButton() {
+    function hideSubwaySurfersButton() {
         const button = document.getElementById('show-popup-button');
         if (button) {
             button.classList.remove('show');
@@ -142,8 +206,14 @@
 
     // Show immediately on load (or call createPopup() when needed)
     if (document.readyState === 'loading') {
-        window.addEventListener('DOMContentLoaded', createPopup);
+        window.addEventListener('DOMContentLoaded', () => {
+            createPopup();
+            createMiniPopup();
+            ensureMiniButton();
+        });
     } else {
         createPopup();
+        createMiniPopup();
+        ensureMiniButton();
     }
 })();

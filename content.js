@@ -47,8 +47,8 @@
         // Create show popup button
         showPopupButton = document.createElement('div');
         showPopupButton.id = 'show-popup-button';
-        showPopupButton.textContent = 'Goon Corner';
-        showPopupButton.title = 'Goon Corner';
+        showPopupButton.textContent = 'Subway Surfers';
+        showPopupButton.title = 'Subway Surfers';
         
         // Add click event listener to show popup button
         showPopupButton.addEventListener('click', showPopup);

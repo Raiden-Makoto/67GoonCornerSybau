@@ -80,3 +80,42 @@
 .popup-close-btn:active {
     background: rgba(255, 0, 0, 0.8) !important;
 }
+
+/* Standalone mini popup (bottom-left) */
+.ext-mini-container {
+    position: fixed !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    width: 210px !important; /* 70% of 300px */
+    height: 280px !important; /* 70% of 400px */
+    padding: 0 !important;
+    z-index: 2147483646 !important;
+    font-family: Arial, sans-serif !important;
+    font-size: 14px !important;
+    background: #ffffff !important;
+    border: 1px solid #ccc !important;
+    border-radius: 12px !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2) !important;
+    opacity: 0 !important;
+    transform: translateY(20px) !important;
+    transition: opacity 0.3s ease, transform 0.3s ease !important;
+    pointer-events: none !important;
+    overflow: hidden !important;
+    cursor: default !important;
+}
+
+.ext-mini-container.ext-mini-show {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    pointer-events: auto !important;
+}
+
+/* image inside mini popup */
+.ext-mini-container .mini-image {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important; /* preserve aspect ratio, no cropping */
+    object-position: center center !important;
+    display: block !important;
+    border-radius: 12px !important;
+}

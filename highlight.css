@@ -92,3 +92,34 @@
     opacity: 1 !important;
     pointer-events: auto !important;
 }
+
+/* Bottom-left mini popup show button */
+#show-mini-button {
+    position: fixed !important;
+    top: 110px !important; /* below the main show button */
+    right: 20px !important;
+    min-width: 60px !important;
+    padding: 10px 15px !important;
+    background: black !important;
+    color: white !important;
+    border-radius: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    z-index: 2147483647 !important;
+    border: 2px solid #ff5252 !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+    transition: opacity 0.3s ease-in-out !important;
+    user-select: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    font-family: Arial, sans-serif !important;
+}
+
+#show-mini-button.show {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}

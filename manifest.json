@@ -3,6 +3,12 @@
     "name": "67 Goon Corner Extension",
     "version": "1.1",
     "description": "Highlights every instance of 67 and adds a Goon Corner to the webpage",
+    "icons": {
+        "16": "logo-16.png",
+        "32": "logo-32.png",
+        "48": "logo-48.png",
+        "128": "logo-128.png"
+    },
     "permissions": [
         "activeTab",
         "storage"
@@ -26,8 +32,10 @@
         {
             "resources": [
                 "popup.html",
+                "popup-mini.html",
                 "popup.css",
-                "subwaysurfers.mp4"
+                "subwaysurfers.mp4",
+                "gooncorner.png"
             ],
             "matches": [
                 "<all_urls>"
@@ -35,6 +43,10 @@
         }
     ],
     "action": {
-        "default_title": "Sybau"
+        "default_title": "Sybau",
+        "default_icon": {
+            "16": "logo-16.png",
+            "32": "logo-32.png"
+        }
     }
 }
